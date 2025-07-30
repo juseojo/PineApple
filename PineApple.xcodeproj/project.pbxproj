@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E96D43622E39EA1600F0A3F2 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = E96D43612E39EA1600F0A3F2 /* ReactorKit */; };
+		E96D43652E39EA3700F0A3F2 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = E96D43642E39EA3700F0A3F2 /* Then */; };
+		E96D43682E39EA4F00F0A3F2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E96D43672E39EA4F00F0A3F2 /* SnapKit */; };
+		E96D436B2E39EBDB00F0A3F2 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E96D436A2E39EBDB00F0A3F2 /* Moya */; };
+		E96D436D2E39EBDB00F0A3F2 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = E96D436C2E39EBDB00F0A3F2 /* RxMoya */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		E96D433A2E38B58C00F0A3F2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +73,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E96D436D2E39EBDB00F0A3F2 /* RxMoya in Frameworks */,
+				E96D43682E39EA4F00F0A3F2 /* SnapKit in Frameworks */,
+				E96D43622E39EA1600F0A3F2 /* ReactorKit in Frameworks */,
+				E96D436B2E39EBDB00F0A3F2 /* Moya in Frameworks */,
+				E96D43652E39EA3700F0A3F2 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +138,11 @@
 			);
 			name = PineApple;
 			packageProductDependencies = (
+				E96D43612E39EA1600F0A3F2 /* ReactorKit */,
+				E96D43642E39EA3700F0A3F2 /* Then */,
+				E96D43672E39EA4F00F0A3F2 /* SnapKit */,
+				E96D436A2E39EBDB00F0A3F2 /* Moya */,
+				E96D436C2E39EBDB00F0A3F2 /* RxMoya */,
 			);
 			productName = PineApple;
 			productReference = E96D43232E38B58900F0A3F2 /* PineApple.app */;
@@ -208,6 +226,12 @@
 			);
 			mainGroup = E96D431A2E38B58900F0A3F2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E96D43602E39EA1600F0A3F2 /* XCRemoteSwiftPackageReference "ReactorKit" */,
+				E96D43632E39EA3700F0A3F2 /* XCRemoteSwiftPackageReference "Then" */,
+				E96D43662E39EA4F00F0A3F2 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				E96D43692E39EBDB00F0A3F2 /* XCRemoteSwiftPackageReference "Moya" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E96D43242E38B58900F0A3F2 /* Products */;
 			projectDirPath = "";
@@ -579,6 +603,69 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E96D43602E39EA1600F0A3F2 /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactorKit/ReactorKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
+		E96D43632E39EA3700F0A3F2 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		E96D43662E39EA4F00F0A3F2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		E96D43692E39EBDB00F0A3F2 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E96D43612E39EA1600F0A3F2 /* ReactorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96D43602E39EA1600F0A3F2 /* XCRemoteSwiftPackageReference "ReactorKit" */;
+			productName = ReactorKit;
+		};
+		E96D43642E39EA3700F0A3F2 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96D43632E39EA3700F0A3F2 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		E96D43672E39EA4F00F0A3F2 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96D43662E39EA4F00F0A3F2 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		E96D436A2E39EBDB00F0A3F2 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96D43692E39EBDB00F0A3F2 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		E96D436C2E39EBDB00F0A3F2 /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E96D43692E39EBDB00F0A3F2 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = RxMoya;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E96D431B2E38B58900F0A3F2 /* Project object */;
 }
