@@ -13,24 +13,18 @@ import RxMoya
 
 
 protocol SearchUseCase {
-    func fetchData() -> Single<Contents>
+    func fetchData(term: String) -> Single<Contents>
 }
 
 final class DefaultSearchUseCase: SearchUseCase {
 
     private let provider: MoyaProvider<ItunesAPI>
-    private let term: String
 
-    init(provider: MoyaProvider<ItunesAPI>, term: String) {
+    init(provider: MoyaProvider<ItunesAPI>) {
         self.provider = provider
-        self.term = term
     }
 
-    func fetchData() -> Single<Contents> {
-        if term.isEmpty {
-            return Single<Contents>.error("term is nil" as! Error)
-        }
-
+    func fetchData(term: String) -> Single<Contents> {
         return provider.rx.request(.search(title: term)).map(Contents.self)
     }
 }
