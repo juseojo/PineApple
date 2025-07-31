@@ -1,9 +1,9 @@
-//
-//  PineAppleUITestsLaunchTests.swift
-//  PineAppleUITests
-//
-//  Created by seongjun cho on 7/29/25.
-//
+////
+////  PineAppleUITestsLaunchTests.swift
+////  PineAppleUITests
+////
+////  Created by seongjun cho on 7/29/25.
+////
 
 import XCTest
 

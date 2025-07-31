@@ -13,19 +13,19 @@ import RxMoya
 
 
 protocol PopularMovieUseCase {
-    func fetchData() -> Single<Movie>
+    func fetchData() -> Single<MovieList>
 }
 
-final class DefaultMovieUseCase: PopularMovieUseCase {
+final class DefaultPopularMovieUseCase: PopularMovieUseCase {
 
     private let provider: MoyaProvider<ItunesAPI>
 
-    init(provider: MoyaProvider<ItunesAPI> = .init()) {
+    init(provider: MoyaProvider<ItunesAPI>) {
         self.provider = provider
     }
 
-    func fetchData() -> Single<Movie> {
-        return provider.rx.request(.popularMovie).map(Movie.self)
+    func fetchData() -> Single<MovieList> {
+        return provider.rx.request(.popularMovie).map(MovieList.self)
     }
 }
 

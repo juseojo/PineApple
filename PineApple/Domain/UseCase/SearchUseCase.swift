@@ -21,7 +21,7 @@ final class DefaultSearchUseCase: SearchUseCase {
     private let provider: MoyaProvider<ItunesAPI>
     private let term: String
 
-    init(provider: MoyaProvider<ItunesAPI> = .init(), term: String = "") {
+    init(provider: MoyaProvider<ItunesAPI>, term: String) {
         self.provider = provider
         self.term = term
     }

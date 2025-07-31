@@ -13,18 +13,18 @@ import RxMoya
 
 
 protocol PopularPodcastUseCase {
-    func fetchData() -> Single<Podcast>
+    func fetchData() -> Single<PodcastList>
 }
 
 final class DefaultPopularPodcastUseCase: PopularPodcastUseCase {
 
     private let provider: MoyaProvider<ItunesAPI>
 
-    init(provider: MoyaProvider<ItunesAPI> = .init()) {
+    init(provider: MoyaProvider<ItunesAPI>) {
         self.provider = provider
     }
 
-    func fetchData() -> Single<Podcast> {
-        return provider.rx.request(.popularPodcast).map(Podcast.self)
+    func fetchData() -> Single<PodcastList> {
+        return provider.rx.request(.popularPodcast).map(PodcastList.self)
     }
 }
