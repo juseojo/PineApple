@@ -20,7 +20,7 @@ extension ItunesAPI: TargetType {
                 fatalError("⚠️ popularSongs URL 잘못 넣었음")
             }
             return url
-        case .popularMovie:
+        case .popularMovie, .search:
             guard let url = URL(
                 string: "https://itunes.apple.com") else {
                 fatalError("⚠️ popularMovie URL 잘못 넣었음")
@@ -30,12 +30,6 @@ extension ItunesAPI: TargetType {
             guard let url = URL(
                 string: "https://rss.marketingtools.apple.com") else {
                 fatalError("⚠️ popularPodcast URL 잘못 넣었음")
-            }
-            return url
-        case .search:
-            guard let url = URL(
-                string: "https://itunes.apple.com/search") else {
-                fatalError("⚠️ search URL 잘못 넣었음")
             }
             return url
         }
@@ -50,7 +44,7 @@ extension ItunesAPI: TargetType {
         case .popularPodcast:
             return "/api/v2/kr/podcasts/top/25/podcasts.json"
         case .search:
-            return ""
+            return "/search"
         }
     }
 
