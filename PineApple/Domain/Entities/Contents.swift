@@ -22,14 +22,14 @@ struct Content: Decodable, Hashable, Identifiable {
     let collectionName: String?
     let trackName: String
     let trackViewURL: String
-    let previewURL: String
+    let previewURL: String?
     let artworkUrl30, artworkUrl60, artworkUrl100: String
     let collectionPrice, trackPrice, trackRentalPrice: Double?
     let releaseDate: String
     let primaryGenreName: String
     let shortDescription, longDescription: String?
     let contentAdvisoryRating: String?
-    let trackTimeMillis: Int
+    let trackTimeMillis: Int?
     let isStreamable: Bool?
 
     enum CodingKeys: String, CodingKey {
