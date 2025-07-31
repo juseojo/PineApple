@@ -16,23 +16,23 @@ extension ItunesAPI: TargetType {
         switch self {
         case .popularSongs:
             guard let url = URL(
-                string: "https://rss.marketingtools.apple.com/api/v2/kr/") else {
+                string: "https://rss.marketingtools.apple.com") else {
                 fatalError("⚠️ popularSongs URL 잘못 넣었음")
             }
             return url
         case .popularMovie:
             guard let url = URL(
-                string: "https://itunes.apple.com/kr/rss/topmovies/limit=10/json") else {
+                string: "https://itunes.apple.com") else {
                 fatalError("⚠️ popularMovie URL 잘못 넣었음")
             }
             return url
         case .popularPodcast:
             guard let url = URL(
-                string: "https://rss.marketingtools.apple.com/api/v2/kr/") else {
+                string: "https://rss.marketingtools.apple.com") else {
                 fatalError("⚠️ popularPodcast URL 잘못 넣었음")
             }
             return url
-        case .search(let title):
+        case .search:
             guard let url = URL(
                 string: "https://itunes.apple.com/search") else {
                 fatalError("⚠️ search URL 잘못 넣었음")
@@ -44,12 +44,12 @@ extension ItunesAPI: TargetType {
     var path: String {
         switch self {
         case .popularMovie:
-            return "music/most-played/10/songs.json"
+            return "/kr/rss/topmovies/limit=10/json"
         case .popularSongs:
-            return ""
+            return "/api/v2/kr/music/most-played/10/songs.json"
         case .popularPodcast:
-            return "podcasts/top/25/podcasts.json"
-        case .search(title: let title):
+            return "/api/v2/kr/podcasts/top/25/podcasts.json"
+        case .search:
             return ""
         }
     }
