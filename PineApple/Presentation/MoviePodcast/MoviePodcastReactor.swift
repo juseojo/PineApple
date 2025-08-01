@@ -73,7 +73,8 @@ final class MoviePodcastReactor: Reactor {
             }
         case .setSearchContents(let contents):
             return state.with {
-                $0.searchContents = contents?.results ?? []
+                $0.searchContents = contents?.results
+                    .filter { $0.kind == "feature-movie" || $0.kind == "podcasts" } ?? []
             }
         }
     }
