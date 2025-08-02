@@ -32,6 +32,10 @@ struct Content: Decodable, Hashable, Identifiable {
     let trackTimeMillis: Int?
     let isStreamable: Bool?
 
+    var artworkUrl600: String {
+        return artworkUrl100.replacingOccurrences(of: "100x100", with: "600x600")
+    }
+    
     enum CodingKeys: String, CodingKey {
         case wrapperType, kind, artistName, collectionName, trackName
         case trackViewURL = "trackViewUrl"

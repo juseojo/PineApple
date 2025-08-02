@@ -56,19 +56,19 @@ final class HorizonCell: UICollectionViewCell {
     }
 
     func configureSong(song: Song) {
-        imageView.kf.setImage(with: URL(string: song.arturl600))
+        imageView.kf.setImage(with: URL(string: song.artworkUrl600))
         titleLabel.text = song.name
         subLabel.text = song.artistName
     }
 
     func configurePodcast(podcast: Podcast) {
-        imageView.kf.setImage(with: URL(string: podcast.arturl600))
+        imageView.kf.setImage(with: URL(string: podcast.artworkUrl600))
         titleLabel.text = podcast.name
         subLabel.text = podcast.artistName
     }
 
     func confugureContetns(content: Content) {
-        imageView.kf.setImage(with: URL(string: content.arturl600))
+        imageView.kf.setImage(with: URL(string: content.artworkUrl600))
         titleLabel.text = content.trackName
         subLabel.text = content.artistName
     }

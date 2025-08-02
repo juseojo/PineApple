@@ -29,7 +29,11 @@ struct SongList: Decodable {
 }
 
 // MARK: - Song (Result) 구조
-struct Song: Decodable {
+struct Song: Decodable, Hashable {
+    static func == (lhs: Song, rhs: Song) -> Bool {
+        lhs.id == rhs.id
+    }
+
     let artistName: String
     let id: String
     let name: String
@@ -40,5 +44,9 @@ struct Song: Decodable {
     let artworkUrl100: String
     let genres: [Genre]
     let url: String
+
+    var artworkUrl600: String {
+        return artworkUrl100.replacingOccurrences(of: "100x100", with: "600x600")
+    }
 }
 

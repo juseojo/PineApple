@@ -56,7 +56,7 @@ class PopularSongCell: UICollectionViewCell {
     }
     
     func configure(song: Song) {
-        imageView.kf.setImage(with: URL(string: song.arturl600))
+        imageView.kf.setImage(with: URL(string: song.artworkUrl600))
         titleLabel.text = song.name
         artistLabel.text = song.artistName
     }
