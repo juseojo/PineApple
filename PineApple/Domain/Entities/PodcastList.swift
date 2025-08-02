@@ -37,10 +37,14 @@ struct Podcast: Decodable {
     let artworkUrl100: String
     let genres: [Genre]
     let url: String
+
+    var artworkUrl600: String {
+        return artworkUrl100.replacingOccurrences(of: "100x100", with: "600x600")
+    }
 }
 
 // MARK: - Genre 구조
-struct Genre: Decodable {
+struct Genre: Decodable, Hashable {
     let genreId: String
     let name: String
     let url: String
