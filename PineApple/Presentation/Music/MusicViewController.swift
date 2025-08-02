@@ -13,7 +13,6 @@ import ReactorKit
 import Moya
 
 final class MusicViewController: UIViewController, View {
-    var disposeBag = DisposeBag()
 
     enum MusicItem: Hashable {
         case popular(Song)
@@ -21,6 +20,7 @@ final class MusicViewController: UIViewController, View {
     }
 
     // MARK: - properties
+    var disposeBag = DisposeBag()
     let musicView = MusicView()
     private lazy var dataSource = makeCollectionViewDataSource(musicView.musicCollectionView)
     let musicReactor: MusicReactor
@@ -57,37 +57,58 @@ final class MusicViewController: UIViewController, View {
 
     private func makeCollectionViewDataSource(
         _ collectionView: UICollectionView) -> UICollectionViewDiffableDataSource<Int, MusicItem> {
+
+            // 인기 노래 셀 설정
             let popularCellRegistration = UICollectionView.CellRegistration<PopularSongCell, Song> { cell, _, item in
                 cell.configure(song: item)
             }
 
+            // 계절 별 노래 설정
             let seasonCellRegistration = UICollectionView.CellRegistration<HorizonCell, Content> { cell, _, item in
                 cell.confugureContetns(content: item)
             }
-            
+
+            // 해더 이름 설정
             let headerRegistration = UICollectionView.SupplementaryRegistration<SectionHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { (supplementaryView, string, indexPath) in
-                if indexPath.section == 0 {
+                switch indexPath.section {
+                case 0:
                     supplementaryView.configure(with: "인기 노래")
-                } else if indexPath.section == 1 {
+                case 1:
                     supplementaryView.configure(with: "봄에 어울리는 노래")
-                } else if indexPath.section == 2 {
+                case 2:
                     supplementaryView.configure(with: "여름에 어울리는 노래")
-                } else if indexPath.section == 3 {
+                case 3:
                     supplementaryView.configure(with: "가을에 어울리는 노래")
-                } else if indexPath.section == 4 {
+                case 4:
                     supplementaryView.configure(with: "겨울에 어울리는 노래")
+                default:
+                    supplementaryView.configure(with: "노래 목록")
                 }
             }
 
-            let dataSource = UICollectionViewDiffableDataSource<Int, MusicItem>(collectionView: collectionView) { collectionView, indexPath, item in
+            // 아이템별 데이터 소스 등록
+            let dataSource = UICollectionViewDiffableDataSource<Int, MusicItem>(
+                collectionView: collectionView) { collectionView, indexPath, item in
+
                 switch item {
                 case .popular(let song):
-                    return collectionView.dequeueConfiguredReusableCell(using: popularCellRegistration, for: indexPath, item: song)
+                    return collectionView
+                        .dequeueConfiguredReusableCell(
+                            using: popularCellRegistration,
+                            for: indexPath,
+                            item: song
+                        )
                 case .season(let song):
-                    return collectionView.dequeueConfiguredReusableCell(using: seasonCellRegistration, for: indexPath, item: song)
+                    return collectionView
+                        .dequeueConfiguredReusableCell(
+                            using: seasonCellRegistration,
+                            for: indexPath,
+                            item: song
+                        )
                 }
             }
-            
+
+            // 헤더 뷰 등록
             dataSource.supplementaryViewProvider = { (view, kind, index) in
                 return view.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
             }
