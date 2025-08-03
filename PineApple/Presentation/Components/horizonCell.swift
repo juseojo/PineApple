@@ -67,6 +67,12 @@ final class HorizonCell: UICollectionViewCell {
         subLabel.text = podcast.artistName
     }
 
+    func configureMovie(movie: Movie) {
+        imageView.kf.setImage(with: movie.highResolutionImageURL)
+        titleLabel.text = movie.title.label
+        subLabel.text = movie.artist.label
+    }
+
     func confugureContetns(content: Content) {
         imageView.kf.setImage(with: URL(string: content.artworkUrl600))
         titleLabel.text = content.trackName
