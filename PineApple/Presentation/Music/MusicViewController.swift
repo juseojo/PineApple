@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import ReactorKit
 import Moya
+import Hero
 
 final class MusicViewController: UIViewController, View {
 
@@ -46,11 +47,7 @@ final class MusicViewController: UIViewController, View {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         bind(reactor: musicReactor)
-        musicReactor.action.onNext(.fetchPopularSongs)
-        musicReactor.action.onNext(.fetchSeasonSongs(.spring))
-        musicReactor.action.onNext(.fetchSeasonSongs(.summer))
-        musicReactor.action.onNext(.fetchSeasonSongs(.autumn))
-        musicReactor.action.onNext(.fetchSeasonSongs(.winter))
+        musicView.searchBar.hero.id = "searchBar"
     }
 
     // MARK: - method
@@ -131,6 +128,22 @@ final class MusicViewController: UIViewController, View {
                 dataSource.apply(snapshot, animatingDifferences: true)
             }
             .disposed(by: disposeBag)
+
+        musicView.searchBar.rx.textDidBeginEditing.subscribe(onNext: { [weak self] _ in
+            let popularMoviesUseCase = DefaultPopularMovieUseCase(provider: MoyaProvider<ItunesAPI>())
+            let popularPodcastsUseCase = DefaultPopularPodcastUseCase(provider: MoyaProvider<ItunesAPI>())
+            let searchContentsUseCase = DefaultSearchUseCase(provider: MoyaProvider<ItunesAPI>())
+            let reactor = MoviePodcastReactor(popularMoviesUseCase: popularMoviesUseCase, popularPodcastsUseCase: popularPodcastsUseCase, searchContentsUseCase: searchContentsUseCase)
+            self?.navigationController?.pushViewController(MoviePodcastViewCotroller(reactor: reactor), animated: true)
+            self?.musicView.searchBar.resignFirstResponder()
+            print("searchBar tapped")
+        }).disposed(by: disposeBag)
+
+        reactor.action.onNext(.fetchPopularSongs)
+        reactor.action.onNext(.fetchSeasonSongs(.spring))
+        reactor.action.onNext(.fetchSeasonSongs(.summer))
+        reactor.action.onNext(.fetchSeasonSongs(.autumn))
+        reactor.action.onNext(.fetchSeasonSongs(.winter))
     }
 }
 
