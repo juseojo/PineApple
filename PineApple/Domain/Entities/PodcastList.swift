@@ -29,7 +29,7 @@ struct PodcastList: Decodable {
 }
 
 // MARK: - Podcast (Result) 구조
-struct Podcast: Decodable {
+struct Podcast: Decodable, Hashable {
     let artistName: String
     let id: String
     let name: String
