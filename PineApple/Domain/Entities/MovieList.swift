@@ -29,7 +29,15 @@ struct MovieList: Decodable {
 }
 
 // MARK: - Movie (Entry) 구조
-struct Movie: Decodable {
+struct Movie: Decodable, Hashable {
+    static func == (lhs: Movie, rhs: Movie) -> Bool {
+        return lhs.title.label == rhs.title.label && lhs.artist.label == rhs.artist.label
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title.label)
+        hasher.combine(artist.label)
+    }
     let title: LabelWrapper
     let images: [ImageInfo]
     let summary: LabelWrapper
