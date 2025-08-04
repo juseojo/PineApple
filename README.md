@@ -24,6 +24,8 @@ PineApple은 인기 있는 음악, 영화, 팟캐스트를 탐색하고 iTunes A
 | :---: | :---: |
 | <img src="PineApple/Resource/와이어프레임 및 예시.png" width="400"> | <img src="PineApple/Resource/구현기능, 라이브러리.png" width="400"> |
 
+이번 프로젝트에서 네트워크 API -> Domain -> Reactor -> View 순으로 비즈니스 로직 먼저 개발하는 형식으로 계획하였다.
+
 ## 아키텍처 및 기술 스택
 
 - **아키텍처**: 클린 아키텍처 기반 (Presentation, Domain 계층 분리)
