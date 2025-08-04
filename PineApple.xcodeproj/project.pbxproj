@@ -15,6 +15,7 @@
 		E9F791552E3C80A800D6DEE2 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E9F791542E3C80A800D6DEE2 /* RxCocoa */; };
 		E9F7925C2E3DE9C500D6DEE2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E9F7925B2E3DE9C500D6DEE2 /* Kingfisher */; };
 		E9F793452E3F953500D6DEE2 /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = E9F793442E3F953500D6DEE2 /* Hero */; };
+		E9F794982E40C42000D6DEE2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E9F794972E40C42000D6DEE2 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		E96D43232E38B58900F0A3F2 /* PineApple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PineApple.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E96D43392E38B58C00F0A3F2 /* PineAppleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PineAppleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E96D43432E38B58C00F0A3F2 /* PineAppleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PineAppleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9F794972E40C42000D6DEE2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -111,6 +113,7 @@
 				E96D433C2E38B58C00F0A3F2 /* PineAppleTests */,
 				E96D43462E38B58C00F0A3F2 /* PineAppleUITests */,
 				E96D43242E38B58900F0A3F2 /* Products */,
+				E9F794972E40C42000D6DEE2 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -261,6 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9F794982E40C42000D6DEE2 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

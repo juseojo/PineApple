@@ -11,9 +11,14 @@ import Moya
 import RxSwift
 import RxMoya
 
+enum MediaType: String {
+    case music = "music"
+    case movie = "movie"
+    case podcast = "podcast"
+}
 
 protocol SearchUseCase {
-    func fetchData(term: String) -> Single<Contents>
+    func fetchData(term: String, offset: Int, mediaType: MediaType) -> Single<Contents>
 }
 
 final class DefaultSearchUseCase: SearchUseCase {
@@ -24,7 +29,14 @@ final class DefaultSearchUseCase: SearchUseCase {
         self.provider = provider
     }
 
-    func fetchData(term: String) -> Single<Contents> {
-        return provider.rx.request(.search(title: term)).map(Contents.self)
+    func fetchData(term: String, offset: Int = 0, mediaType: MediaType) -> Single<Contents> {
+        switch mediaType {
+        case .music:
+            return provider.rx.request(.search(title: term, offset: offset, media: .music)).map(Contents.self)
+        case .movie:
+            return provider.rx.request(.search(title: term, offset: offset, media: .movie)).map(Contents.self)
+        case .podcast:
+            return provider.rx.request(.search(title: term, offset: offset, media: .podcast)).map(Contents.self)
+        }
     }
 }

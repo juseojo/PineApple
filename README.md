@@ -11,6 +11,21 @@ PineApple은 인기 있는 음악, 영화, 팟캐스트를 탐색하고 iTunes A
 - **유연한 UI 레이아웃**: `UICollectionViewCompositionalLayout`을 사용하여 다양한 화면에 최적화된 레이아웃을 제공합니다.
 - **의존성 주입**: `DIContainer`를 통해 의존성을 관리하여 모듈성과 테스트 용이성을 높입니다.
 
+## 앱 미리보기
+
+| 다크 모드 | 다크 모드 | 작동 모습 |
+| :---: | :---: | :---: |
+| <img src="PineApple/Resource/darkExample1.png" width="250"> | <img src="PineApple/Resource/darkExample2.png" width="250"> | <img src="PineApple/Resource/exmaple.gif" width="250"> |
+
+
+## 사전 설계
+
+| 와이어프레임 | 구현 기능 및 라이브러리 |
+| :---: | :---: |
+| <img src="PineApple/Resource/와이어프레임 및 예시.png" width="400"> | <img src="PineApple/Resource/구현기능, 라이브러리.png" width="400"> |
+
+이번 프로젝트에서 네트워크 API -> Domain -> Reactor -> View 순으로 비즈니스 로직 먼저 개발하는 형식으로 계획하였다.
+
 ## 아키텍처 및 기술 스택
 
 - **아키텍처**: 클린 아키텍처 기반 (Presentation, Domain 계층 분리)
@@ -22,6 +37,12 @@ PineApple은 인기 있는 음악, 영화, 팟캐스트를 탐색하고 iTunes A
 - **객체 초기화**: Then 라이브러리를 사용하여 객체 초기화 코드를 간결하고 가독성 있게 작성합니다.
 - **화면 전환 애니메이션**: Hero 라이브러리를 사용하여 뷰 컨트롤러 간의 전환 애니메이션을 부드럽고 다이내믹하게 구현합니다.
 - **API**: iTunes API를 통해 음악, 영화, 팟캐스트 데이터를 가져옵니다.
+
+## 메모리 관리
+
+메모리 누수(Memory Leak)가 발생하지 않도록 Instruments의 Leaks 도구를 사용하여 철저한 테스트를 진행했습니다. 테스트 결과, 앱의 주요 기능들을 반복적으로 사용하는 시나리오에서 메모리 누수가 발생하지 않음을 확인하여 앱의 안정성을 확보했습니다.
+
+<img src="PineApple/Resource/leakClear.png" width="600">
 
 ## 프로젝트 구조
 

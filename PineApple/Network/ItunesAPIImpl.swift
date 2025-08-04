@@ -58,10 +58,12 @@ extension ItunesAPI: TargetType {
             return .requestPlain
         case .popularPodcast:
             return .requestPlain
-        case .search(let title):
+        case .search(let title, let offset, let media):
             return .requestParameters(
                 parameters: ["term" : title,
                              "country" : "KR",
+                             "offset": offset,
+                             "media" : media
                             ],
                 encoding: URLEncoding.queryString
             )

@@ -9,5 +9,5 @@ enum ItunesAPI {
     case popularSongs
     case popularMovie
     case popularPodcast
-    case search(title: String)
+    case search(title: String, offset: Int, media: MediaType)
 }
