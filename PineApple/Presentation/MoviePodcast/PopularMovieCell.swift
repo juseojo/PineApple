@@ -20,22 +20,22 @@ class PopularMovieCell: UICollectionViewCell {
 
     let titleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 24, weight: .bold)
-        $0.textColor = .label
+        $0.textColor = .black
     }
 
     let genreLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 12, weight: .bold)
-        $0.textColor = .secondaryLabel
+        $0.textColor = .systemGray
     }
 
     let releaseDateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 12, weight: .regular)
-        $0.textColor = .secondaryLabel
+        $0.textColor = .systemGray
     }
 
     let amountLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 12, weight: .bold)
-        $0.textColor = .secondaryLabel
+        $0.textColor = .systemGray
     }
 
     let stackView = UIStackView().then {
