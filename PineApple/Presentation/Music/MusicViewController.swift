@@ -28,8 +28,8 @@ final class MusicViewController: UIViewController, View {
 
     // MARK: - init
 
-    init(musicReactor: MusicReactor) {
-        self.musicReactor = musicReactor
+    init(reactor: MusicReactor) {
+        self.musicReactor = reactor
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -130,13 +130,9 @@ final class MusicViewController: UIViewController, View {
             .disposed(by: disposeBag)
 
         musicView.searchBar.rx.textDidBeginEditing.subscribe(onNext: { [weak self] _ in
-            let popularMoviesUseCase = DefaultPopularMovieUseCase(provider: MoyaProvider<ItunesAPI>())
-            let popularPodcastsUseCase = DefaultPopularPodcastUseCase(provider: MoyaProvider<ItunesAPI>())
-            let searchContentsUseCase = DefaultSearchUseCase(provider: MoyaProvider<ItunesAPI>())
-            let reactor = MoviePodcastReactor(popularMoviesUseCase: popularMoviesUseCase, popularPodcastsUseCase: popularPodcastsUseCase, searchContentsUseCase: searchContentsUseCase)
-            self?.navigationController?.pushViewController(MoviePodcastViewCotroller(reactor: reactor), animated: true)
+            let moviePodcastVC: MoviePodcastViewCotroller = DIContainer.shared.resolve()
+            self?.navigationController?.pushViewController(moviePodcastVC, animated: true)
             self?.musicView.searchBar.resignFirstResponder()
-            print("searchBar tapped")
         }).disposed(by: disposeBag)
 
         reactor.action.onNext(.fetchPopularSongs)
@@ -147,11 +143,11 @@ final class MusicViewController: UIViewController, View {
     }
 }
 
-@available(iOS 18.0, *)
-#Preview {
-    let popularUsecase = DefaultPopularSongsUseCase(provider: MoyaProvider<ItunesAPI>())
-    let searchUseCase = DefaultSearchUseCase(provider: MoyaProvider<ItunesAPI>())
-    let reactor = MusicReactor(popularSongsUseCase: popularUsecase, searchSongsUseCase: searchUseCase)
-
-    MusicViewController(musicReactor: reactor)
-}
+//@available(iOS 18.0, *)
+//#Preview {
+//    let popularUsecase = DefaultPopularSongsUseCase(provider: MoyaProvider<ItunesAPI>())
+//    let searchUseCase = DefaultSearchUseCase(provider: MoyaProvider<ItunesAPI>())
+//    let reactor = MusicReactor(popularSongsUseCase: popularUsecase, searchSongsUseCase: searchUseCase)
+//
+//    //MusicViewController(musicReactor: reactor)
+//}

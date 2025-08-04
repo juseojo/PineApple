@@ -15,21 +15,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let popularUsecase = DefaultPopularSongsUseCase(provider: MoyaProvider<ItunesAPI>())
-        let searchUseCase = DefaultSearchUseCase(provider: MoyaProvider<ItunesAPI>())
-        let reactor = MusicReactor(popularSongsUseCase: popularUsecase, searchSongsUseCase: searchUseCase)
-        let naVC = UINavigationController(
-            rootViewController: MusicViewController(musicReactor: reactor))
+
+        // DIContainer 설정
+        let container = DIContainer.shared
+        registerDependencies(in: container)
+
+        // 초기 ViewController 설정
+        let musicVC: MusicViewController = container.resolve()
+        let naVC = UINavigationController(rootViewController: musicVC)
 
         naVC.hero.isEnabled = true
         naVC.navigationBar.isHidden = true
         window?.rootViewController = naVC
         window?.makeKeyAndVisible()
+    }
+
+    private func registerDependencies(in container: DIContainer) {
+        let itunesProvider = MoyaProvider<ItunesAPI>()
+        container.register(itunesProvider)
+
+        container.register(DefaultPopularSongsUseCase(provider: itunesProvider))
+        container.register(DefaultPopularMovieUseCase(provider: itunesProvider))
+        container.register(DefaultPopularPodcastUseCase(provider: itunesProvider))
+        container.register(DefaultSearchUseCase(provider: itunesProvider))
+
+        container.register(MusicReactor(
+            popularSongsUseCase: container.resolve(),
+            searchSongsUseCase: container.resolve()
+        ))
+        container.register(MoviePodcastReactor(
+            popularMoviesUseCase: container.resolve(),
+            popularPodcastsUseCase: container.resolve(),
+            searchContentsUseCase: container.resolve()
+        ))
+
+        container.register(MusicViewController(reactor: container.resolve()))
+        container.register(MoviePodcastViewCotroller(reactor: container.resolve()))
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
