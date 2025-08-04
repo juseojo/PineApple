@@ -81,7 +81,9 @@ class PopularMovieCell: UICollectionViewCell {
         imageView.kf.setImage(with: movie.highResolutionImageURL)
         titleLabel.text = movie.title.label
         genreLabel.text = movie.category.attributes.label
-        releaseDateLabel.text = movie.releaseDate.label
+        if let releaseDate = movie.releaseDate.label.components(separatedBy: "T").first {
+            releaseDateLabel.text = releaseDate
+        }
         amountLabel.text = movie.price.label
     }
 }
