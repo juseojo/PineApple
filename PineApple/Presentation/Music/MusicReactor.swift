@@ -53,7 +53,7 @@ final class MusicReactor: Reactor {
                 .map { Mutation.setPopularSongs($0) }
                 .asObservable()
         case .fetchSeasonSongs(let season):
-            return searchSongsUseCase.fetchData(term: season.rawValue)
+            return searchSongsUseCase.fetchData(term: season.rawValue, offset: 0, mediaType: .music)
                 .map { Mutation.setSeasonSongs($0, season) }
                 .asObservable()
         }

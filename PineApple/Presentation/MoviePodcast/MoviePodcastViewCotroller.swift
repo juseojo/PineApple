@@ -186,6 +186,12 @@ class MoviePodcastViewCotroller: UIViewController, View {
             })
             .disposed(by: disposeBag)
 
+        // 스크롤 맨 아래 감지 -> 다음 페이지 로드
+        moviePodcastView.searchListCollectionView.rx.reachedBottom()
+            .map { .loadNextPage }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
         reactor.action.onNext(.fetchPopularMovies)
         reactor.action.onNext(.fetchPopularPodcasts)
     }
