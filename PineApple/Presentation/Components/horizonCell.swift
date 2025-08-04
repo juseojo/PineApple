@@ -64,7 +64,7 @@ final class HorizonCell: UICollectionViewCell {
     func configurePodcast(podcast: Podcast) {
         imageView.kf.setImage(with: URL(string: podcast.artworkUrl600))
         titleLabel.text = podcast.name
-        subLabel.text = podcast.artistName
+        subLabel.text = "\(podcast.artistName) - \(podcast.genres.map { $0.name }.joined(separator: " & "))"
     }
 
     func configureMovie(movie: Movie) {
