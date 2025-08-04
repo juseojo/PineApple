@@ -55,6 +55,14 @@ final class HorizonCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        imageView.image = nil
+        titleLabel.text = nil
+        subLabel.text = nil
+    }
+
     func configureSong(song: Song) {
         imageView.kf.setImage(with: URL(string: song.artworkUrl600))
         titleLabel.text = song.name

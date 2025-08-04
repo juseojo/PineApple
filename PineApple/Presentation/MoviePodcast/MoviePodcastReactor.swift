@@ -22,18 +22,23 @@ final class MoviePodcastReactor: Reactor {
         case fetchPopularMovies
         case fetchPopularPodcasts
         case searchContents(String)
+        case loadNextPage
     }
 
     enum Mutation {
         case setPopularMovies(MovieList)
         case setPopularPodcasts(PodcastList)
-        case setSearchContents(Contents?)
+        case setSearchContents(Contents?, term: String)
+        case appendSearchContents(Contents?)
+        case setLoading(Bool)
     }
 
     struct State: Then {
         var popularMovies = [Movie]()
         var popularPodcasts = [Podcast]()
         var searchContents = [Content]()
+        var searchTerm: String = ""
+        var isLoading: Bool = false
     }
 
     init(popularMoviesUseCase: DefaultPopularMovieUseCase,
@@ -48,16 +53,53 @@ final class MoviePodcastReactor: Reactor {
         switch action {
         case .fetchPopularMovies:
             return popularMoviesUseCase.fetchData()
-                .map { Mutation.setPopularMovies($0) }
+                .map { .setPopularMovies($0) }
                 .asObservable()
         case .fetchPopularPodcasts:
             return popularPodcastsUseCase.fetchData()
-                .map { Mutation.setPopularPodcasts($0) }
+                .map { .setPopularPodcasts($0) }
                 .asObservable()
         case .searchContents(let term):
-            return searchContentsUseCase.fetchData(term: term)
-                .map { Mutation.setSearchContents($0) }
+            let movieSearch = searchContentsUseCase.fetchData(term: term, offset: 0, mediaType: .movie)
                 .asObservable()
+                .catchAndReturn(Contents(resultCount: 0, results: []))
+            let podcastSearch = searchContentsUseCase.fetchData(term: term, offset: 0, mediaType: .podcast)
+                .asObservable()
+                .catchAndReturn(Contents(resultCount: 0, results: []))
+
+            return Observable.zip(movieSearch, podcastSearch)
+                .map { movieContents, podcastContents -> Contents in
+                    let combinedResults = movieContents.results + podcastContents.results
+                    return Contents(resultCount: combinedResults.count, results: combinedResults)
+                }
+                .map { .setSearchContents($0, term: term) }
+
+        case .loadNextPage:
+            if currentState.isLoading {
+                return .empty()
+            }
+
+            let term = currentState.searchTerm
+            let movieOffset = currentState.searchContents.filter { $0.kind == "feature-movie" }.count
+            let podcastOffset = currentState.searchContents.filter { $0.kind == "podcast" }.count
+
+            let movieSearch = searchContentsUseCase.fetchData(term: term, offset: movieOffset, mediaType: .movie)
+                .asObservable()
+                .catchAndReturn(Contents(resultCount: 0, results: []))
+            let podcastSearch = searchContentsUseCase.fetchData(term: term, offset: podcastOffset, mediaType: .podcast)
+                .asObservable()
+                .catchAndReturn(Contents(resultCount: 0, results: []))
+
+            return .concat([
+                .just(.setLoading(true)),
+                Observable.zip(movieSearch, podcastSearch)
+                    .map { movieContents, podcastContents -> Contents in
+                        let combinedResults = movieContents.results + podcastContents.results
+                        return Contents(resultCount: combinedResults.count, results: combinedResults)
+                    }
+                    .map { .appendSearchContents($0) },
+                .just(.setLoading(false))
+            ])
         }
     }
 
@@ -71,10 +113,20 @@ final class MoviePodcastReactor: Reactor {
             return state.with {
                 $0.popularPodcasts = podcastList.podcasts
             }
-        case .setSearchContents(let contents):
+        case .setSearchContents(let contents, let term):
             return state.with {
-                $0.searchContents = contents?.results
-                    .filter { $0.kind == "feature-movie" || $0.kind == "podcasts" } ?? []
+                $0.searchContents = contents?.results ?? []
+                $0.searchTerm = term
+            }
+        case .appendSearchContents(let contents):
+            let newContents = contents?.results ?? []
+            return state.with {
+                $0.searchContents.append(contentsOf: newContents)
+                print(newContents.map { $0.trackName })
+            }
+        case .setLoading(let isLoading):
+            return state.with {
+                $0.isLoading = isLoading
             }
         }
     }
